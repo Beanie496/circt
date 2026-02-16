@@ -616,6 +616,9 @@ def AnyUnionRefType : SpecificRefType<AnyUnionType>;
 /// Class references.
 def ClassHandleRefType : SpecificRefType<ClassHandleType>;
 
+/// Mailbox references
+def MailboxRefType : SpecificRefType<MailboxType>;
+
 /// Queue references
 def QueueRefType : SpecificRefType<QueueType>;
 
