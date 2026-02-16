@@ -77,6 +77,24 @@ def ClassHandleType : MooreTypeDef<"ClassHandle", [], "moore::UnpackedType"> {
 }
 
 //===----------------------------------------------------------------------===//
+// MailboxType
+//===----------------------------------------------------------------------===//
+
+def MailboxType : MooreTypeDef<"Mailbox", [], "moore::UnpackedType"> {
+  let mnemonic = "mailbox";
+  let summary = "a mailbox type";
+  let description = [{
+      A mailbox for message passing between processes. It's a sychronous FIFO
+      queue that can be fetched from or written to in both a blocking- and
+      non-blocking manner.
+  }];
+  let parameters = (ins "UnpackedType":$elementType);
+  let assemblyFormat = [{
+    `<` $elementType `>`
+  }];
+}
+
+//===----------------------------------------------------------------------===//
 // TimeType
 //===----------------------------------------------------------------------===//
 
