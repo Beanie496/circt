@@ -1796,6 +1796,7 @@ ClassLowering *Context::declareClass(const slang::ast::ClassType &cls) {
   return lowering.get();
 }
 
+// Declares the class and fills out the body with property declarations.
 LogicalResult
 Context::buildClassProperties(const slang::ast::ClassType &classdecl) {
   // Keep track of local time scale.

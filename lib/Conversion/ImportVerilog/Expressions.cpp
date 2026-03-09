@@ -13,7 +13,6 @@
 #include "slang/ast/EvalContext.h"
 #include "slang/ast/SystemSubroutine.h"
 #include "slang/ast/types/AllTypes.h"
-#include "slang/syntax/AllSyntax.h"
 #include "llvm/ADT/ScopeExit.h"
 
 using namespace circt;
@@ -1985,9 +1984,12 @@ struct RvalueExprVisitor : public ExprVisitor {
       if (const auto *subroutine =
               std::get_if<const slang::ast::SubroutineSymbol *>(
                   &callConstructor->subroutine)) {
+        // TODO: add other standard classes too
+        bool isBuiltin =
+            classTy.getClassSym().getLeafReference() == "std::mailbox";
         // Bit paranoid, but virtually free checks that new is a class method
         // and the subroutine has already been converted.
-        if (!(*subroutine)->thisVar) {
+        if (!(*subroutine)->thisVar && !isBuiltin) {
           mlir::emitError(loc) << "Expected subroutine called by new to use an "
                                   "implicit this reference";
           return {};
